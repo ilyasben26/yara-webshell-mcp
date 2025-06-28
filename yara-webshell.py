@@ -45,6 +45,31 @@ async def run(command: str) -> str:
 
     return json.dumps(output, indent=2)
 
+@mcp.prompt
+def generate_yara_rule(filepath: str) -> str:
+    """Generate a prompt that guides the LLM to analyze a file and create a YARA rule."""
+    return f"""You are a malware analyst.
+
+Your task is to create a YARA rule for the file located at: {filepath}
+
+## Workflow:
+1. Use the MCP tool `tools()` to discover which analysis tools are available.
+2. Based on the available tools, select and use the ones that help you analyze the file. This may include:
+    - Extracting strings.
+    - Getting file metadata or hashes.
+    - Checking entropy or file type.
+    - Any other relevant analysis tools listed.
+3. Use the insights from your analysis to generate an effective YARA rule that detects this file based on its unique characteristics.
+4. Save the YARA rule as a `.yar` file into the folder `data/`. Use the original filename (without extension) as the rule file name.
+
+## Notes:
+- The YARA rule should include meaningful strings, conditions, and metadata if applicable.
+- Avoid overfitting; the rule should not match clean files unnecessarily.
+- Confirm the rule has been saved.
+
+Start by running the `tools()` command to check which tools are available."""
+
+
 if __name__ == "__main__":
     # Initialize and run the server
     mcp.run(transport='stdio')
