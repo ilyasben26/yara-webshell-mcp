@@ -87,3 +87,9 @@ Output
   "files": ["filexyz.exe", "webshell.php", "rules.yar"]
 }
 ```
+
+# Workflows:
+
+## Rule generation workflow:
+
+## Rule testing workflow:

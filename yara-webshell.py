@@ -45,6 +45,8 @@ async def run(command: str) -> str:
 
     return json.dumps(output, indent=2)
 
+
+
 @mcp.prompt
 def generate_yara_rule(filepath: str) -> str:
     """Generate a prompt that guides the LLM to analyze a file and create a YARA rule."""
@@ -60,7 +62,7 @@ Your task is to create a YARA rule for the file located at: {filepath}
     - Checking entropy or file type.
     - Any other relevant analysis tools listed.
 3. Use the insights from your analysis to generate an effective YARA rule that detects this file based on its unique characteristics.
-4. Save the YARA rule as a `.yar` file into the folder `data/`. Use the original filename (without extension) as the rule file name.
+4. Save the YARA rule as a `.yar` file into the folder `yara-rules/`. Use the original filename (without extension) as the rule file name.
 
 ## Notes:
 - The YARA rule should include meaningful strings, conditions, and metadata if applicable.
