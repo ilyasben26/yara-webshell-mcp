@@ -87,12 +87,12 @@ async def tools() -> dict:
                 "help": "strings.exe /?"
             }
         # Optionally add yara.exe if available
-        yara_path = os.path.join(BINARIES_FOLDER, 'yara.exe')
+        yara_path = os.path.join(BINARIES_FOLDER, 'yara64.exe')
         if os.path.exists(yara_path):
             tools_dict["yara"] = {
                 "description": "Scan files with YARA rules.",
-                "usage": "yara.exe rules.yar filename",
-                "help": "yara.exe --help",
+                "usage": "yara64.exe rules.yar filename",
+                "help": "yara64.exe --help",
                 "location": f"{os.path.join(BINARIES_FOLDER, 'yara64.exe')}"
             }
     else:
