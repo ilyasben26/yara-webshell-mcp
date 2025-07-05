@@ -142,6 +142,8 @@ async def tools() -> dict:
 def generate_yara_rule(filepath: str) -> str:
     """Generate a prompt that guides the LLM to analyze a file and create a YARA rule."""
     os_name = platform.system()
+    if os_name == "Windows":
+        yara_folder = r"%USERPROFILE%\yara-rules"
     return f"""You are a malware analyst.
 
 Your task is to create a YARA rule for the file located at: {filepath}
@@ -150,21 +152,22 @@ Your task is to create a YARA rule for the file located at: {filepath}
 - The operating system is: {os_name}
 
 ## Workflow:
-1. Use the MCP tool `tools()` to discover which analysis tools are available, you have access to a shell using the MCP tool `run()`.
-2. Based on the available tools, select and use the ones that help you analyze the file. This may include:
+1. Use the MCP tool `tools()` to discover which analysis tools are available. You have access to a shell using the MCP tool `run()`.
+2. Based on the available tools, select and use those that help you analyze the file. This may include:
     - Extracting strings.
     - Getting file metadata or hashes.
     - Checking entropy or file type.
     - Any other relevant analysis tools listed.
-3. Use the insights from your analysis to generate an effective YARA rule that detects this file based on its unique characteristics.
-4. Save the YARA rule as a `.yar` file into the folder `$HOME/yara-rules/`. If the folder doesn't exist, then create it. Use the original filename (without extension) as the rule file name.
+3. Use the insights from your analysis to generate a YARA rule that detects this file based on its unique and distinguishing characteristics, but ensure the rule is general enough to match similar malware samples, not just this exact file.
+4. Avoid using file hashes or overly specific values that would only match this single file. Prefer patterns, strings, or structural features that are likely to be shared by related malware.
+5. Save the YARA rule as a `.yar` file into the folder `{"%USERPROFILE%\\yara-rules" if os_name == "Windows" else "$HOME/yara-rules"}`. If the folder doesn't exist, then create it. Use the original filename (without extension) as the rule file name.
 
 ## Notes:
 - The YARA rule should include meaningful strings, conditions, and metadata if applicable.
-- Avoid overfitting; the rule should not match clean files unnecessarily.
+- Avoid overfitting; the rule should not match clean files unnecessarily, nor should it be so specific that it only matches this single file.
 - Confirm the rule has been saved.
 
-Start by running the `tools()` command to check which tools are available. You don't have to use all tools, just the ones that are relevant for your analysis. 
+Start by running the `tools()` command to check which tools are available. You don't have to use all tools, just the ones that are relevant for your analysis.
 At the end, make sure to show the generated YARA rule in the response."""
 
 
