@@ -45,4 +45,5 @@ On Linux or MacOS: create this file in `~/Library/Application\ Support/Claude/cl
 }
 ```
 Restart Claude Desktop and you should see the MCP server appear as an option in the prompting form.
+![alt text](image.png)
 For troubleshooting, check this guide: https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop
