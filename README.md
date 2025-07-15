@@ -1,95 +1,48 @@
 # YARA-WEBSHELL-MCP
-
-## TO-DO:
-
-- Implement /run endpoint
-  - Prompt the user to install the tool in case it doesn't exist on the system?
-- Implement /tools endpoint
-  - Verify if tool is installed on the system as well?
-
-| Endpoint  | Purpose                                  |
-| --------- | ---------------------------------------- |
-| `/run`    | Run a command/tool                       |
-| `/tools`  | List available tools with descriptions   |
-| `/status` | Check job status (if async)              |
-| `/logs`   | Retrieve logs or recent executions       |
-| `/files`  | List available files in workspace folder |
-
-# Endpoints specifications
-
-## run
-
-Input:
-
-```json
-{
-  "command": "yara rules.yar /data/filexyz.exe"
-}
+## Installation steps:
+Install uv:
+```bash
+pip install uv
 ```
+Install Claude Desktop: https://claude.ai/download
 
-Output:
-
-```json
-{
-  "stdout": "YARA match: malware_rule",
-  "stderr": "",
-  "exit_code": 0
-}
+Clone the repository and copy its path for later use:
+```bash
+git clone https://github.com/ilyasben26/yara-webshell-mcp
+cd yara-webshell-mcp
+pwd  
 ```
-
-## tools
-
-Output:
-
+On Windows: create this file in `C:\Users\<user-name>\AppData\Roaming\Claude\claude_desktop_config.json` and provide the correct absolute path:
 ```json
 {
-  "tools": {
-    "file": {
-      "description": "Identify file type using magic bytes.",
-      "usage": "file filename",
-      "help": "files --help"
-    },
-    "yara": {
-      "description": "Scan files with YARA rules.",
-      "usage": "yara rules.yar filename",
-      "help": "yara --help"
-    },
-    "strings": {
-      "description": "Extract printable strings from binary files.",
-      "usage": "strings [options] filename"
-    },
-    "capa": {
-      "description": "Detect malware capabilities in executables.",
-      "usage": "capa filename"
-    },
-    "grep",
-    "sed",
-    "cat",
-    ...
+  "mcpServers": {
+    "weather": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\ABSOLUTE\\PATH\\TO\\PARENT\\FOLDER\\yara-webshell-mcp", 
+        "run",
+        "yara-webshell.py"
+      ]
+    }
   }
 }
 ```
-
-## files
-
-Input:
-
+On Linux or MacOS: create this file in `~/Library/Application\ Support/Claude/claude_desktop_config.json`:
 ```json
 {
-  "regex_query": ""
+  "mcpServers": {
+    "weather": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/ABSOLUTE/PATH/TO/PARENT/FOLDER/yara-webshell-mcp", 
+        "run",
+        "yara-webshell.py"
+      ]
+    }
+  }
 }
 ```
-
-Output
-
-```json
-{
-  "files": ["filexyz.exe", "webshell.php", "rules.yar"]
-}
-```
-
-# Workflows:
-
-## Rule generation workflow:
-
-## Rule testing workflow:
+Restart Claude Desktop and you should see the MCP server appear as an option in the prompting form.
+For troubleshooting, check this guide: https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop
