@@ -49,6 +49,6 @@ Restart Claude Desktop and you should see the MCP server appear as an option in 
 For troubleshooting, check this guide: https://modelcontextprotocol.io/quickstart/server#testing-your-server-with-claude-for-desktop
 
 ## Demonstration:
-You can test the MCP server by taking the absolute path of one of the webshells in the `data` folder and choosing giving it as input to the pre-made prompt in Claude Desktop:
+You can test the MCP server by taking the absolute path of one of the webshells in the `data` folder and giving it as input to the pre-made prompt in Claude Desktop:
 ![](<Screenshot 2025-07-15 at 16.28.16.png>)
 ![](<Screenshot 2025-07-15 at 16.42.20.png>)
