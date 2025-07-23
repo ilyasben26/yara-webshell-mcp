@@ -1,6 +1,6 @@
 import subprocess
 import json
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 import os
 import platform
 
@@ -171,4 +171,4 @@ At the end, make sure to show the generated YARA rule in the response."""
 
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='stdio')
+    mcp.run()
